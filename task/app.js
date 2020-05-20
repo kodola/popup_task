@@ -1,45 +1,24 @@
-/*
-window.onload = function(){
-    setTimeout(function(){
-        alert("Hello");
-        console.log('wyswietlono!');
-    }, 3000);
-    setTimeout(function (){
-        alert.style.display = "none";
-    }, 10000)
-};
-*/
 document.addEventListener("DOMContentLoaded", function(event) {
     setTimeout( () => {
-        document.getElementsByClassName('modal_container')[0].classList.add('show');
 
-
-    const modals = document.querySelectorAll('.front');
-    for (let i = 0; i < modals.length; i++) {
-        modals[i].addEventListener("mouseover", function (event) {
-            this.classList.add('index');
-        });
-        modals[i].addEventListener("mouseleave", function (event) {
-            this.classList.remove('index');
-        });
-    }
-
-    const timeout = setTimeout(() => {
-        document.getElementsByClassName('modal_container')[0].classList.remove('show');
-    }, 10000);
+        const popups = document.querySelectorAll('.modal_container, .front');
+        for (let i = 0; i < popups.length; i++) {
+            popups[i].classList.add('show');
+        }
 
     document.querySelector('p.counter').innerText = `I will disappear after 10 seconds`;
     const counter = (n) => {
         let i = 10;
-        if (timeout && i >= n) {
+        if (i >= n) {
             const counting = setInterval(() => {
                 document.querySelector('p.counter').innerText = `I will disappear after ${--i} seconds`;
                 console.log(i);
                 if (i === n) {
                 clearInterval(counting);
-                }
-                if (!document.querySelectorAll('.modal_container')[0].className.match('show')) {
-                    clearInterval(counting);
+                    document.getElementsByClassName('modal')[0].classList.remove('show');
+                    if (!document.querySelector('.modal_click').className.match('show')) {
+                        document.querySelector('.modal_container').classList.remove('show');
+                    }
                 }
             }, 1000);
         }
@@ -48,8 +27,21 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
     const button = document.querySelector('.btn');
     button.addEventListener("click", function (event) {
-        document.getElementsByClassName('modal_container')[0].classList.remove('show');
-        clearTimeout(timeout);
-    })
+        document.getElementsByClassName('modal_click')[0].classList.remove('show');
+        if (!document.querySelector('.modal').className.match('show')) {
+            document.querySelector('.modal_container').classList.remove('show');
+        }
+    });
+
+        const modals = document.querySelectorAll('.front');
+        for (let i = 0; i < modals.length; i++) {
+            modals[i].addEventListener("mouseover", function (event) {
+                this.classList.add('index');
+            });
+            modals[i].addEventListener("mouseleave", function (event) {
+                this.classList.remove('index');
+            });
+        }
+
     }, 4000);
 });
